@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\TaskController; // 確保引入 TaskController
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+// 添加以下路由來支持 To-Do List 的操作
+Route::resource('tasks', TaskController::class);
+
+// 保留測試路由
+Route::get('/test', [TestController::class, 'index']);
